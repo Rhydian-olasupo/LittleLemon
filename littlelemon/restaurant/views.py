@@ -3,6 +3,7 @@ from rest_framework import generics , viewsets
 from .models import Menu, Booking
 from .serializers import menuSerializer, bookingSerializer
 from django.http import Http404
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 def home(request):
     return render(request, 'index.html',{})
@@ -20,6 +21,6 @@ class SingleItemView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class BookingViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = bookingSerializer
-    
